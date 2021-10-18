@@ -25,6 +25,6 @@ $ dsa-downloader download-langs --langs ChineseTraditional --langs English
 Downloading assets
 
 ```
-$ dsa-downloader extract-assets 
+$ dsa-downloader download-assets
 ```
 
