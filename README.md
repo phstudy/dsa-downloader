@@ -28,3 +28,10 @@ Downloading assets
 $ dsa-downloader download-assets
 ```
 
+## Docker
+
+Extracting bootstrap config from apk
+
+```
+docker run -it --rm -v "$PWD":/dsa study/dsa-downloader dsa-downloader extract-config com.glu.disneygame.apk
+```
