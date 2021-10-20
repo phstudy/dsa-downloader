@@ -15,7 +15,7 @@ def cli(ctx, debug):
     ctx.obj['DEBUG'] = debug
 
 
-@cli.command()
+@cli.command(help='Extract bootstrap config from APK file.')
 @click.pass_context
 @click.argument('path_to_apk', type=click.Path(exists=True))
 @click.argument('output_path', type=click.Path(dir_okay=False), default='out/bootstrap_config.json')
@@ -24,14 +24,14 @@ def extract_config(ctx, path_to_apk, output_path):
     extractor.bootstrap_extract_config(path_to_apk, output_path)
 
 
-@cli.command()
+@cli.command(help='Download localization files.')
 @click.pass_context
 @click.argument('path_to_boostrap_config', type=click.Path(exists=True), default='out/bootstrap_config.json')
 @click.argument('output_path', type=click.Path(), default='out/langs')
 @click.option('--langs', type=click.Choice(
     ["ChineseTraditional", "ChineseSimplified", "English", "French", "German", "Italian", "Japanese", "Korean",
      "PortugueseBrazilian", "Russian", "Spanish"], case_sensitive=False), default=["English"],
-              multiple=True)
+              multiple=True, help="Languages to be extracted.")
 def download_langs(ctx, path_to_boostrap_config, output_path, langs):
     lang_downloader = language_downloader.LanguageDownloader(ctx.obj['DEBUG'], path_to_boostrap_config, output_path)
 
@@ -39,13 +39,15 @@ def download_langs(ctx, path_to_boostrap_config, output_path, langs):
         lang_downloader.download_lang(lang)
 
 
-@cli.command()
+@cli.command(help='Download assets.')
 @click.pass_context
 @click.argument('path_to_boostrap_config', type=click.Path(exists=True), default='out/bootstrap_config.json')
 @click.argument('output_path', type=click.Path(), default='out/assets')
 @click.argument('extracted_path', type=click.Path(), default='out/assets_extracted')
-@click.option('--extract_asset', type=click.BOOL, default=True)
-@click.option('--threads', type=click.INT, default=10)
+@click.option('--extract-asset', type=click.BOOL, default=True,
+              help="Flag to turn on/off asset extraction.")
+@click.option('--threads', type=click.INT, default=10,
+              help="Threads count to download/extract assets.", metavar='<int>')
 def download_assets(ctx, path_to_boostrap_config, output_path, extract_asset, extracted_path, threads):
     handler = asset_processor.AssetHandler(ctx.obj['DEBUG'], path_to_boostrap_config, output_path, extracted_path,
                                            threads)

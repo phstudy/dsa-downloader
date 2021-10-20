@@ -1,3 +1,4 @@
+import click
 import requests
 import json
 import os
@@ -12,7 +13,6 @@ class LanguageDownloader:
         os.makedirs(output_path, exist_ok=True)
 
     def download_lang(self, lang):
-        print(f'Downloading Loc_{lang}...')
         loc_res = requests.get(f'{self.meta.loc_cdn_base_url}/localization/{self.meta.loc_version}/Loc_{lang}.txt')
         loc_res.encoding = 'utf-8'
 
@@ -20,6 +20,7 @@ class LanguageDownloader:
             fout.write(loc_res.text)
             fout.flush()
             fout.close()
+            click.echo(f"{lang} localization file is written to {self.output_path}/Loc_{lang}.txt.")
 
         with open(f'{self.output_path}/Loc_{lang}.json', 'w', encoding='utf8') as fout:
             rst = dict()
@@ -31,3 +32,4 @@ class LanguageDownloader:
                     rst[words[0]] = ''
             json_dumps_str = json.dumps(rst, sort_keys=True, ensure_ascii=False, indent=2)
             print(json_dumps_str, file=fout)
+            click.echo(f"{lang} localization file is written to {self.output_path}/Loc_{lang}.json.")

@@ -18,11 +18,11 @@ class ConfigExtractor:
                 data = obj.read()
                 if data.name == "bootstrap_config":
                     if self.debug:
-                        click.echo("bootstrap_config was found")
+                        click.echo("bootstrap_config is found")
                         click.echo("try to extract bootstrap_config")
                     output_file = open(output_path, 'w')
                     output_file.write(data.text)
                     output_file.flush()
                     output_file.close()
-                    click.echo(f"bootstrap_config was extracted to {output_path}")
+                    click.echo(f"bootstrap_config file is written to {output_path}.")
                     exit(0)
