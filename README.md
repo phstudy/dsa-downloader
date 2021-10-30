@@ -24,7 +24,7 @@ Commands:
 Install the library using pip
 
 ```
-$ pip install dsa-downloader -U
+$ python -m pip install dsa-downloader
 ```
 
 Extract bootstrap config from *APK* file
