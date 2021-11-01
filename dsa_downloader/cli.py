@@ -2,6 +2,7 @@ import click
 from dsa_downloader import config_extractor
 from dsa_downloader import language_downloader
 from dsa_downloader import asset_processor
+from dsa_downloader import gamedata_downloader
 
 
 @click.group()
@@ -22,6 +23,15 @@ def cli(ctx, debug):
 def extract_config(ctx, path_to_apk, output_path):
     extractor = config_extractor.ConfigExtractor(ctx.obj['DEBUG'])
     extractor.bootstrap_extract_config(path_to_apk, output_path)
+
+
+@cli.command(help='Download gamedata.')
+@click.pass_context
+@click.argument('path_to_boostrap_config', type=click.Path(exists=True), default='out/bootstrap_config.json')
+@click.argument('output_path', type=click.Path(), default='out/gamedata')
+def download_gamedata(ctx, path_to_boostrap_config, output_path):
+    downloader = gamedata_downloader.GamedataDownloader(ctx.obj['DEBUG'], path_to_boostrap_config, output_path)
+    downloader.download_gamedata()
 
 
 @cli.command(help='Download localization files.')

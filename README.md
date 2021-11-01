@@ -16,9 +16,10 @@ Options:
   --help                Show this message and exit.
 
 Commands:
-  download-assets  Download assets.
-  download-langs   Download localization files.
-  extract-config   Extract bootstrap config from APK file.
+  download-assets   Download assets.
+  download-langs    Download localization files.
+  download-gamedata Download gamedata.
+  extract-config    Extract bootstrap config from APK file.
 ```
 
 Install the library using pip
@@ -32,6 +33,13 @@ Extract bootstrap config from *APK* file
 ```
 $ dsa-downloader extract-config com.glu.disneygame.apk
 bootstrap_config file is written to out/bootstrap_config.json.
+```
+
+Download gamedata
+
+```
+$ dsa-downloader download-gamedata
+gamedata-static.bin is written to out/gamedata/9c49b3b7-1479-4c28-8894-d1da716e36ce_gamedata.bin
 ```
 
 Download localization files

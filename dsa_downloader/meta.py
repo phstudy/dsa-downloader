@@ -21,3 +21,4 @@ class Meta:
         self.loc_cdn_base_url = res.payload.loc_cdn_base_url
         self.asset_cdn_base_url = res.payload.asset_cdn_base_url
         self.bundle_version = res.payload.bundle_version
+        self.gamedata_version = res.payload.gamedata_version
