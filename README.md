@@ -40,6 +40,10 @@ Download gamedata
 ```
 $ dsa-downloader download-gamedata
 gamedata-static.bin is written to out/gamedata/9c49b3b7-1479-4c28-8894-d1da716e36ce_gamedata.bin
+
+# Convert gamedata binary to json
+$ curl -O https://github.com/phstudy/dsa_proto_dumper/blob/main/gamedata/gamedata.fbs
+$ flatc --json --defaults-json --strict-json --raw-binary gamedata.fbs -- out/gamedata/9c49b3b7-1479-4c28-8894-d1da716e36ce_gamedata.bin
 ```
 
 Download localization files
