@@ -28,7 +28,7 @@ Install the library using pip
 $ python -m pip install dsa-downloader
 ```
 
-Extract bootstrap config from *APK* file
+Extract bootstrap config from *[Disney Sorcerer's Arena APK](https://apkcombo.com/apk-downloader/#package=com.glu.disneygame)* file
 
 ```
 $ dsa-downloader extract-config com.glu.disneygame.apk
