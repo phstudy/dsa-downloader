@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor
 from PIL import Image
 from dsa_downloader import meta
 from dsa_downloader import metadata
+import os.path
 
 
 class AssetHandler:
@@ -102,7 +103,7 @@ class AssetHandler:
                             print('emote> ' + file_name + ' missed m_PathID: ' + str(path_id))
 
                 if len(images) == 0 and self.debug:
-                    print('emote> ' + file_name + ' has 0 image and was skiped ')
+                    print('emote> ' + file_name + ' has 0 image and was skipped ')
                     continue
                 img, *imgs = images
 
@@ -112,8 +113,9 @@ class AssetHandler:
                 dest, ext = os.path.splitext(dest)
                 dest = dest + ".gif"
 
-                img.save(fp=dest, format='GIF', append_images=imgs, save_all=True, fps=data._fps,
-                         duration=data._durationS * 1000 / len(images), loop=0, disposal=2)
+                if not os.path.exists(dest):
+                    img.save(fp=dest, format='GIF', append_images=imgs, save_all=True, fps=data._fps,
+                             duration=data._durationS * 1000 / len(images), loop=0, disposal=2)
         else:
             for path, obj in env.container.items():
                 try:
@@ -124,7 +126,8 @@ class AssetHandler:
 
                         os.makedirs(os.path.dirname(dest), exist_ok=True)
 
-                        data.image.save(dest)
+                        if not os.path.exists(dest):
+                            data.image.save(dest)
                 except:
                     if self.debug:
                         print("container> failed to process " + file_name + " " + str(obj))
@@ -140,15 +143,17 @@ class AssetHandler:
                         if ext == '':
                             dest = path + ".png"
 
-                        img = data.image
-                        img.save(dest)
+                        if not os.path.exists(dest):
+                            img = data.image
+                            img.save(dest)
                     elif obj.type == 'AudioClip':
                         clip = obj.read()
                         for name, data in clip.samples.items():
                             dest = os.path.join(destination_folder, file_name, name)
                             os.makedirs(os.path.dirname(dest), exist_ok=True)
-                            with open(dest, "wb") as f:
-                                f.write(data)
+                            if not os.path.exists(dest):
+                                with open(dest, "wb") as f:
+                                    f.write(data)
 
                     # TODO: unit_XXXX -> .fbx
                     # elif obj.type == 'Animator':

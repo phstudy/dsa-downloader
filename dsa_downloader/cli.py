@@ -56,7 +56,7 @@ def download_langs(ctx, path_to_boostrap_config, output_path, langs):
 @click.argument('extracted_path', type=click.Path(), default='out/assets_extracted')
 @click.option('--extract-asset', type=click.BOOL, default=True,
               help="Flag to turn on/off asset extraction.")
-@click.option('--threads', type=click.INT, default=10,
+@click.option('--threads', type=click.INT, default=5,
               help="Threads count to download/extract assets.", metavar='<int>')
 def download_assets(ctx, path_to_boostrap_config, output_path, extract_asset, extracted_path, threads):
     handler = asset_processor.AssetHandler(ctx.obj['DEBUG'], path_to_boostrap_config, output_path, extracted_path,
