@@ -65,7 +65,7 @@ class AssetHandler:
             image_dict = {}
             for obj in env.objects:
                 try:
-                    if obj.type in ["Texture2D", "Sprite"]:
+                    if obj.type.name in ["Texture2D", "Sprite"]:
                         im = obj.read().image
                         alpha = im.getchannel('A')
 
@@ -119,7 +119,7 @@ class AssetHandler:
         else:
             for path, obj in env.container.items():
                 try:
-                    if obj.type in ["Texture2D", "Sprite"]:
+                    if obj.type.name in ["Texture2D", "Sprite"]:
                         data = obj.read()
                         head, tail = os.path.split(path)
                         dest = os.path.join(destination_folder, file_name, tail)
@@ -134,7 +134,7 @@ class AssetHandler:
 
             for obj in env.objects:
                 try:
-                    if obj.type in ["Texture2D", "Sprite"]:
+                    if obj.type.name in ["Texture2D", "Sprite"]:
                         data = obj.read()
                         dest = os.path.join(destination_folder, file_name, data.name)
                         os.makedirs(os.path.dirname(dest), exist_ok=True)
@@ -146,7 +146,7 @@ class AssetHandler:
                         if not os.path.exists(dest):
                             img = data.image
                             img.save(dest)
-                    elif obj.type == 'AudioClip':
+                    elif obj.type.name == 'AudioClip':
                         clip = obj.read()
                         for name, data in clip.samples.items():
                             dest = os.path.join(destination_folder, file_name, name)
@@ -156,7 +156,7 @@ class AssetHandler:
                                     f.write(data)
 
                     # TODO: unit_XXXX -> .fbx
-                    # elif obj.type == 'Animator':
+                    # elif obj.type.name == 'Animator':
                     #     data = obj.read()
                     #     print(obj.__dict__)
                     #     print(dir(data))

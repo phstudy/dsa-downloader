@@ -14,7 +14,7 @@ class ConfigExtractor:
             click.echo("try to find bootstrap_config")
 
         for obj in env.objects:
-            if obj.type == "TextAsset":
+            if obj.type.name == "TextAsset":
                 data = obj.read()
                 if data.name == "bootstrap_config":
                     if self.debug:
